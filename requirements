@@ -3,5 +3,3 @@ uvicorn
 pydantic
 pysqlite3
 cachetools
-python-jose[cryptography]
-
