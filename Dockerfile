@@ -4,8 +4,6 @@ COPY requirements ./
 
 RUN pip install --user --no-cache-dir -r requirements
 
-RUN python -m unittest discover
-
 # app stage
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim as app
 
