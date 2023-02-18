@@ -16,6 +16,6 @@ RUN apt-get update && \
 
 ENV PATH=/root/.local/bin:$PATH
 
-COPY main.py .
+COPY ../app/main.py .
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
