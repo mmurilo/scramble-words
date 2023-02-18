@@ -3,4 +3,3 @@ uvicorn
 pydantic
 pysqlite3
 cachetools
-fastapi_health

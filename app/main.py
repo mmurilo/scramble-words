@@ -3,7 +3,6 @@ import random
 import sqlite3
 from fastapi import FastAPI, Request, HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi_health import HealthCheck, HealthCheckResponse
 from pydantic import BaseModel
 from datetime import datetime
 from cachetools import cached, TTLCache
@@ -79,20 +78,6 @@ def get_api_calls(limit=return_limit):
             })
         return {"api_calls": api_calls}
 
-health = HealthCheck()
-
-def simple_check():
-    return True
-
-health.add_check(simple_check)
-
-# def check():
-#     # Perform health checks here
-#     status = "pass"
-#     if not status:
-#         return 503  # Service Unavailable
-#     return 200  # OK
-
 @app.post("/jumble")
 def randomize_word(word: Word, authenticated: bool = Depends(authenticate)):
     input_word = word.word
@@ -107,8 +92,3 @@ def randomize_word(word: Word, authenticated: bool = Depends(authenticate)):
 def api_calls(request: Request, authenticated: bool = Depends(authenticate)):
     limit = request.query_params.get('limit', return_limit)
     return get_api_calls(limit=limit)
-
-@app.get("/health")
-def health_check():
-    response = HealthCheckResponse(health.check())
-    return response.dict()
