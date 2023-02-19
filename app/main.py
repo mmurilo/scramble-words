@@ -94,6 +94,6 @@ def api_calls(request: Request, authenticated: bool = Depends(authenticate)):
     limit = request.query_params.get('limit', return_limit)
     return get_api_calls(limit=limit)
 
-@app.get('/health')
+@app.get('/healthz')
 async def health():
     return JSONResponse(content={"status": "ok"})
