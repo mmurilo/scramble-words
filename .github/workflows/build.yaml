@@ -10,7 +10,7 @@ env:
   DOCKERHUB_PROJECT: scramble-words
 
 jobs:   
-  docker:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
           
-      - name: Build and export to Docker
+      - name: Build and Load
         uses: docker/build-push-action@v4
         with:
           context: app
@@ -38,7 +38,7 @@ jobs:
       #   run: |
       #     docker run --rm ${{ env.TEST_TAG }} --help
 
-      - name: Build and push
+      - name: Build and push Branch
         uses: docker/build-push-action@v4
         if: github.event_name == 'push'
         with:
