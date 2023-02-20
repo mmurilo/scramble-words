@@ -94,6 +94,37 @@ affinity: {}
 #   value: mysecretkey
 
 env:
-  db_path: #api_calls.db
   max_calls: 1000
   return_limit: 10
+
+## Enable persistence using Persistent Volume Claims
+## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
+##
+persistence:
+  ## @param persistence.enabled Enable persistence using PVC
+  ##
+  enabled: true
+
+  storageClassName: "standard"
+  ## @param persistence.accessModes PVC Access Mode
+  ## Requires persistence.enabled: true
+  ## If defined, and no customStorageClass is defined, then
+  ## PVC must be created manually before volume will be bound
+  ##
+  accessMode: ReadWriteOnce
+
+  ## @param persistence.size PVC Storage Request
+  ##
+  size: 1Gi
+  ## @param persistence.existingClaim An Existing PVC name
+  ## Requires persistence.enabled: true
+  ## If defined, PVC must be created manually before volume will be bound
+  ##
+  existingClaim: ""
+  ## @param persistence.hostPath Host mount path
+  ## Requires persistence.enabled: true
+  ## Requires persistence.existingClaim: nil|false
+  ## Default: nil.
+  ##
+  hostPath: "/tmp/db-data"
+  ## @param persistence.annotations Persistent Volume Claim annotations

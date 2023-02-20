@@ -38,10 +38,8 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
-            {{- if not (empty .Values.env.db_path) }}
             - name: DB_PATH
-              value: {{ .Values.env.db_path | quote }}
-            {{- end }}
+              value: data/api_calls.db
             {{- if not (empty .Values.env.max_calls) }}
             - name: MAX_CALLS
               value: {{ .Values.env.max_calls | quote }}
@@ -64,6 +62,9 @@ spec:
             periodSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: db-data
+              mountPath: /app/data
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -76,3 +77,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: db-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-db-data" (include "jumble-api.fullname" .)) }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
