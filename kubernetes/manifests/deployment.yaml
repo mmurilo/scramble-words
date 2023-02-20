@@ -1,34 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jumble-api
+  name: jumble-jumble-api
   labels:
-    app: jumble-api
+    helm.sh/chart: jumble-api-0.0.1
+    app.kubernetes.io/name: jumble-api
+    app.kubernetes.io/instance: jumble
+    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/managed-by: Helm
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: jumble-api
+      app.kubernetes.io/name: jumble-api
+      app.kubernetes.io/instance: jumble
   template:
     metadata:
       labels:
-        app: jumble-api
+        app.kubernetes.io/name: jumble-api
+        app.kubernetes.io/instance: jumble
     spec:
+      serviceAccountName: jumble-jumble-api
+      securityContext:
+        {}
       containers:
         - name: jumble-api
-          image: mmurilo/scramble-words:health
+          securityContext:
+            capabilities:
+              add:
+              - NET_BIND_SERVICE
+              drop:
+              - all
+            runAsUser: 1000
+          image: "mmurilo/scramble-words:0.0.1"
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 80
+              protocol: TCP
           env:
-            - name: DB_PATH
-              value: api_calls.db
             - name: MAX_CALLS
               value: "1000"
             - name: RETURN_LIMIT
               value: "10"
-            - name: AUTH_TOKEN
-              value: mysecretkey
           livenessProbe:
             httpGet:
               path: /healthz
@@ -41,24 +55,10 @@ spec:
               port: http
             initialDelaySeconds: 10
             periodSeconds: 5
-          securityContext:
-            runAsUser: 1000
-            capabilities:
-              drop:
-                - all
-              add:
-                - NET_BIND_SERVICE
           resources:
             limits:
               cpu: 500m
               memory: 512Mi
             requests:
-              cpu: 250m
-              memory: 256Mi
-          volumeMounts:
-            - name: db-file
-              mountPath: /app/api_calls.db
-      volumes:
-        - name: db-file
-          secret:
-            secretName: audit-secret
+              cpu: 100m
+              memory: 128Mi
