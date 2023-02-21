@@ -72,9 +72,9 @@ resources:
 
 autoscaling:
   enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
+  # minReplicas: 1
+  # maxReplicas: 100
+  # targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
@@ -99,9 +99,9 @@ auth_token: []
 persistence:
   ## @param persistence.enabled Enable persistence using PVC
   ##
-  enabled: true
+  enabled: false
 
-  storageClassName: "standard"
+  storageClassName: ""
 
   accessMode: ReadWriteOnce
 
@@ -109,4 +109,4 @@ persistence:
 
   existingClaim: ""
 
-  hostPath: "/tmp/db-data"
+  hostPath: ""
