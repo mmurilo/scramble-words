@@ -59,7 +59,7 @@ ingress:
   #      - chart-example.local
 
 resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
+  # usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -83,19 +83,15 @@ tolerations: []
 
 affinity: {}
 
-# env:
-#   - name: DB_PATH
-#     value: api_calls.db
-#   - name: MAX_CALLS
-#     value: "1000"
-#   - name: RETURN_LIMIT
-#     value: "10"
-# - name: AUTH_TOKEN
-#   value: mysecretkey
-
 env:
   max_calls: 1000
   return_limit: 10
+
+auth_token: []
+## @param existingSecret Name of a secret with the api token
+# existingSecret:
+## @param existingSecret Key of a secret with the api token. defaults to `auth_token`
+# existingSecret_key:
 
 ## Enable persistence using Persistent Volume Claims
 ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes/
@@ -106,25 +102,11 @@ persistence:
   enabled: true
 
   storageClassName: "standard"
-  ## @param persistence.accessModes PVC Access Mode
-  ## Requires persistence.enabled: true
-  ## If defined, and no customStorageClass is defined, then
-  ## PVC must be created manually before volume will be bound
-  ##
+
   accessMode: ReadWriteOnce
 
-  ## @param persistence.size PVC Storage Request
-  ##
   size: 1Gi
-  ## @param persistence.existingClaim An Existing PVC name
-  ## Requires persistence.enabled: true
-  ## If defined, PVC must be created manually before volume will be bound
-  ##
+
   existingClaim: ""
-  ## @param persistence.hostPath Host mount path
-  ## Requires persistence.enabled: true
-  ## Requires persistence.existingClaim: nil|false
-  ## Default: nil.
-  ##
+
   hostPath: "/tmp/db-data"
-  ## @param persistence.annotations Persistent Volume Claim annotations
