@@ -1,20 +1,26 @@
-FROM python:3.11 as build
+FROM python:3.11 as dependencies
+
+RUN python -m venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY requirements ./
 
-RUN pip install --user --no-cache-dir -r requirements
+RUN pip install --upgrade pip
+
+RUN pip install --no-cache-dir -r requirements
 
 # app stage
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim as app
-
-COPY --from=build /root/.local /root/.local
 
 RUN apt-get update && \
     apt-get -y install sqlite3 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENV PATH=/root/.local/bin:$PATH
+COPY --from=dependencies /opt/venv /opt/venv
+
+ENV PATH="/opt/venv/bin:$PATH"
 
 COPY main.py .
 
