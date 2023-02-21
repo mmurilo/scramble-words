@@ -2,8 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    paths-ignore:
-      - "kubernetes/**"
+    paths:
+      - "app/**"
+      - ".github/**"
 
   release:
     types: [published]
