@@ -9,6 +9,7 @@ metadata:
 spec:
   accessModes:
     - {{ .Values.persistence.accessMode | quote }}
+  storageClassName: {{ .Values.persistence.storageClassName | quote }}
   capacity:
     storage: {{ .Values.persistence.size | quote }}
   hostPath:
