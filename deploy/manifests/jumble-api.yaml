@@ -9,7 +9,7 @@ metadata:
     helm.sh/chart: jumble-api-0.0.1
     app.kubernetes.io/name: jumble-api
     app.kubernetes.io/instance: jumble
-    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/version: "v0.0.1"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: jumble-api/templates/secret.yaml
@@ -22,11 +22,11 @@ metadata:
     helm.sh/chart: jumble-api-0.0.1
     app.kubernetes.io/name: jumble-api
     app.kubernetes.io/instance: jumble
-    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/version: "v0.0.1"
     app.kubernetes.io/managed-by: Helm
 type: Opaque
 data:
-  auth_token: "YWVFajBuRHlReHJrZnE4UklmeW4="
+  auth_token: "R21XR1l4TlNoUWwwSFh4VEo4RFE="
 ---
 # Source: jumble-api/templates/service.yaml
 apiVersion: v1
@@ -38,7 +38,7 @@ metadata:
     helm.sh/chart: jumble-api-0.0.1
     app.kubernetes.io/name: jumble-api
     app.kubernetes.io/instance: jumble
-    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/version: "v0.0.1"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -61,7 +61,7 @@ metadata:
     helm.sh/chart: jumble-api-0.0.1
     app.kubernetes.io/name: jumble-api
     app.kubernetes.io/instance: jumble
-    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/version: "v0.0.1"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -89,7 +89,7 @@ spec:
               drop:
               - all
             runAsUser: 1000
-          image: "mmurilo/scramble-words:0.0.1"
+          image: "mmurilo/scramble-words:v0.0.1"
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
