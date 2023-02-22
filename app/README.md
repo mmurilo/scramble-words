@@ -62,7 +62,7 @@ This is the main container entrypoint. It takes any word or string and re-arrang
 Reqtests need to be done in `json` format, wit the key par `word:value`
 
 ```bash
-curl -X POST -H "Content-Type: application/json" http://localhost/jumble -d '{"word":"magic"}' -H "Authorization: Bearer <token>"
+curl -X POST -H "Content-Type: application/json" http://127.0.0.1/jumble -d '{"word":"magic"}' -H "Authorization: Bearer <token>"
 ```
 
 ### Audit
