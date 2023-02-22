@@ -54,7 +54,7 @@ The container can be configured using the following environment variables:
 
 ### Authentication
 
-All endpoints are protected by a Bearer token set durig startup. and all resquest need to include the http header `-H "Authorization: Bearer <token_value>"
+All endpoints are protected by a Bearer token set durig startup. and all resquest need to include the http header `-H "Authorization: Bearer <token_value>"`
 
 ### Jumble Words
 

@@ -14,7 +14,7 @@ API server built in Python that takes a word and re-arranges the characters rand
 
 Installation instructions for running [application](#application) on Kubernetes
 
-[deploy/](deploy/)
+[`deploy/`](deploy/)
 
 - [Helm](deploy/charts/jumble-api/README.md)
 - [Manifests](deploy/manifests/README.md)
@@ -30,7 +30,7 @@ curl -X POST -H "Content-Type: application/json" http://127.0.0.1/jumble -d '{"w
 To get the last api requests:
 
 ```bash
-curl -s "http://127.0.0.1/audit?limit=50"
+curl -s "http://127.0.0.1/audit"
 ```
 
 More detalaid usage and configuration [here](app/README.md)
