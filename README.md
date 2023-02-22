@@ -1,28 +1,47 @@
-# Randomize
+# Jumble Words API
 
-## Build
+## Application
+
+API server built in Python that takes a word and re-arranges the characters randomly
+
+[`app/`](app/)
+
+- [Build](app/README.md#build)
+- [Run](app/README.md#run)
+- [Usage](app/README.md#usage)
+
+## Deployemnt
+
+Installation instructions for running [application](#application) on Kubernetes
+
+[`deploy/`](deploy/)
+
+- [Helm](deploy/charts/jumble-api/README.md)
+- [Manifests](deploy/manifests/README.md)
+
+## Basic Usage
+
+to scramble a word:
 
 ```bash
-docker build -t my-fastapi-app .
+curl -X POST -H "Content-Type: application/json" http://127.0.0.1/jumble -d '{"word":"<some_word>"}' -H "Authorization: Bearer <token>"
 ```
 
-## test
+To get the last api requests:
 
 ```bash
-docker run -d -p 80:80 --name my-container my-fastapi-app
+curl -s "http://127.0.0.1/audit"
 ```
 
-This will start the FastAPI application in a Docker container, mapping port 80 on the host machine to port 80 in the container. You can then access the "jumble" API endpoint at <http://localhost/jumble>, and the "audit" API endpoint at <http://localhost/audit>.
+More detalaid usage and configuration [here](app/README.md)
 
-```bash
-nerdctl run --rm -p 8080:80 -v "$(pwd)/api_calls.db:/app/api_calls.db" --name test-api jumble:0.0.2
-```
+## Author
 
-```bash
-curl -X POST -H "Content-Type: application/json" http://127.0.0.1:8080/jumble -d '{"word":"folha"}'
-```
+- **Marcos Rocha** - _Initial work_ - [mmurilo](https://github.com/mmurilo)
 
+See also the list of [contributors](https://github.com/mmurilo/scramble-words/contributors) who
+participated in this project.
 
-curl -s "http://127.0.0.1:8080/audit?limit=50" |jq '.api_calls | length'
+## License
 
-nerdctl run --rm -p 8080:80 -v "$(pwd)/api_calls.db:/app/api_calls.db" -e MAX_CALLS=100 -e RETURN_LIMIT=6 --name test-api jumble:0.0.3
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
